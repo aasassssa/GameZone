@@ -38,7 +38,6 @@ const GAMES = [
   // SURVIVAL
   { title: "Tsunamis.io",       tag: "survival", icon: "🌊", bg: "#e3f2fd", url: "https://www.miniplay.com/embed/tsunamis-io" },
   { title: "StealNow.io",       tag: "survival", icon: "🕵️", bg: "#f3e5f5", url: "https://www.miniplay.com/embed/stealnow-io" },
-  { title: "Meeland.io",        tag: "survival", icon: "🐾", bg: "#e8f5e9", url: "https://www.miniplay.com/embed/meeland-io" },
 
   // PUZZLE
   { title: "2048",              tag: "puzzle",   icon: "🔢", bg: "#fff3e0", url: "https://playpager.com/embed/2048/index.html" },
