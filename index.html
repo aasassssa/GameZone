@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game Zone</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f5f4f0;
+    --surface: #ffffff;
+    --surface2: #efefeb;
+    --border: #e0ddd6;
+    --text: #1a1916;
+    --muted: #7a7870;
+    --accent: #2a5cff;
+    --accent-soft: #eaeefd;
+    --radius: 12px;
+    --font: 'DM Sans', sans-serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 28px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .logo {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .logo-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .search-wrap {
+    position: relative;
+  }
+
+  .search-wrap svg {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+  }
+
+  #search {
+    padding: 7px 12px 7px 34px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface2);
+    font-family: var(--font);
+    font-size: 13px;
+    color: var(--text);
+    width: 210px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  #search:focus { border-color: var(--accent); background: var(--surface); }
+  #search::placeholder { color: var(--muted); }
+
+  /* FILTERS */
+  .filters {
+    padding: 14px 28px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+  }
+
+  .filter-label {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 500;
+    margin-right: 4px;
+    white-space: nowrap;
+  }
+
+  .chip {
+    padding: 5px 14px;
+    border-radius: 99px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--muted);
+    white-space: nowrap;
+    transition: all 0.15s;
+    font-family: var(--font);
+  }
+
+  .chip:hover { border-color: #bbb; color: var(--text); }
+  .chip.active { background: var(--accent); color: white; border-color: var(--accent); }
+
+  /* MAIN */
+  main { padding: 24px 28px; }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .count {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: var(--mono);
+  }
+
+  /* GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 12px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+  }
+
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    border-color: #ccc;
+  }
+
+  .card-thumb {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    position: relative;
+  }
+
+  .card-body { padding: 10px 12px 12px; }
+
+  .card-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+
+  .card-meta {
+    font-size: 11px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .badge {
+    padding: 2px 7px;
+    border-radius: 99px;
+    font-size: 10px;
+    font-weight: 500;
+    font-family: var(--mono);
+  }
+
+  .badge-io { background: #e8f5e9; color: #2e7d32; }
+  .badge-puzzle { background: #f3e5f5; color: #7b1fa2; }
+  .badge-action { background: #fff3e0; color: #e65100; }
+  .badge-sports { background: #e3f2fd; color: #1565c0; }
+  .badge-survival { background: #fce4ec; color: #c62828; }
+  .badge-building { background: #e0f2f1; color: #00695c; }
+
+  .no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 48px 0;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  /* PLAYER MODAL */
+  .modal-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10,10,10,0.65);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .modal-backdrop.open { display: flex; }
+
+  .modal {
+    background: var(--surface);
+    border-radius: 16px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 900px;
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .modal-game-info { display: flex; align-items: center; gap: 10px; }
+
+  .modal-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+
+  .modal-title { font-size: 14px; font-weight: 600; color: var(--text); }
+  .modal-sub { font-size: 12px; color: var(--muted); }
+
+  .modal-actions { display: flex; align-items: center; gap: 8px; }
+
+  .icon-btn {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface2);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-size: 14px;
+    transition: all 0.15s;
+    font-family: var(--font);
+  }
+
+  .icon-btn:hover { background: var(--border); color: var(--text); }
+
+  #game-frame {
+    width: 100%;
+    height: 540px;
+    border: none;
+    display: block;
+    background: #111;
+  }
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <span class="logo-dot"></span>
+    GameZone
+  </div>
+  <div class="header-right">
+    <div class="search-wrap">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="search" type="text" placeholder="Search games..." oninput="render()">
+    </div>
+  </div>
+</header>
+
+<div class="filters">
+  <span class="filter-label">Filter:</span>
+  <button class="chip active" onclick="setFilter('all',this)">All</button>
+  <button class="chip" onclick="setFilter('io',this)">.io</button>
+  <button class="chip" onclick="setFilter('puzzle',this)">Puzzle</button>
+  <button class="chip" onclick="setFilter('action',this)">Action</button>
+  <button class="chip" onclick="setFilter('sports',this)">Sports</button>
+  <button class="chip" onclick="setFilter('survival',this)">Survival</button>
+  <button class="chip" onclick="setFilter('building',this)">Building</button>
+</div>
+
+<main>
+  <div class="section-header">
+    <span class="section-title">Games</span>
+    <span class="count" id="count"></span>
+  </div>
+  <div class="grid" id="grid"></div>
+</main>
+
+<!-- PLAY MODAL -->
+<div class="modal-backdrop" id="play-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-game-info">
+        <div class="modal-icon" id="modal-icon"></div>
+        <div>
+          <div class="modal-title" id="modal-title"></div>
+          <div class="modal-sub" id="modal-sub"></div>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="icon-btn" title="Open in new tab" onclick="openTab()">↗</button>
+        <button class="icon-btn" title="Fullscreen" onclick="toggleFullscreen()" id="fs-btn">⛶</button>
+        <button class="icon-btn" title="Close" onclick="closePlay()">✕</button>
+      </div>
+    </div>
+    <iframe id="game-frame" src="" allowfullscreen allow="fullscreen"></iframe>
+  </div>
+</div>
+
+<script src="games.js"></script>
+<script>
+let games = [...GAMES];
+
+const EMOJIS = ["🎮","🕹️","🎯","🏆","⚔️","🔫","🧟","🐍","🥚","🏀","⛏️","🧱","🔢","🚀","🌊","🎲","🐉","💣","🦊","🏎️","🧩","👾","🤖","🦅"];
+
+let activeFilter = "all";
+let currentGame = null;
+
+function setFilter(f, el) {
+  activeFilter = f;
+  document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
+  el.classList.add("active");
+  render();
+}
+
+function render() {
+  const q = document.getElementById("search").value.toLowerCase();
+  const grid = document.getElementById("grid");
+  const filtered = games.filter(g =>
+    (activeFilter === "all" || g.tag === activeFilter) &&
+    g.title.toLowerCase().includes(q)
+  );
+  document.getElementById("count").textContent = filtered.length + " games";
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div class="no-results">No games found. Try a different search or filter.</div>';
+    return;
+  }
+  grid.innerHTML = filtered.map((g) => `
+    <div class="card" onclick="play(${games.indexOf(g)})">
+      <div class="card-thumb" style="background:${g.bg}">${g.icon}</div>
+      <div class="card-body">
+        <div class="card-title">${g.title}</div>
+        <div class="card-meta"><span class="badge badge-${g.tag}">${g.tag === 'io' ? '.io' : g.tag}</span></div>
+      </div>
+    </div>
+  `).join("");
+}
+
+function play(i) {
+  currentGame = games[i];
+  document.getElementById("modal-icon").textContent = currentGame.icon;
+  document.getElementById("modal-icon").style.background = currentGame.bg;
+  document.getElementById("modal-title").textContent = currentGame.title;
+  document.getElementById("modal-sub").textContent = currentGame.url.replace(/^https?:\/\//, "");
+  document.getElementById("game-frame").src = currentGame.url;
+  document.getElementById("play-modal").classList.add("open");
+}
+
+function closePlay() {
+  document.getElementById("play-modal").classList.remove("open");
+  document.getElementById("game-frame").src = "";
+  currentGame = null;
+}
+
+function openTab() {
+  if (currentGame) window.open(currentGame.url, "_blank");
+}
+
+function toggleFullscreen() {
+  const frame = document.getElementById("game-frame");
+  if (!document.fullscreenElement) {
+    frame.requestFullscreen();
+    document.getElementById("fs-btn").textContent = "⛶";
+  } else {
+    document.exitFullscreen();
+  }
+}
+
+document.getElementById("play-modal").addEventListener("click", function(e) {
+  if (e.target === this) closePlay();
+});
+
+render();
+</script>
+</body>
+</html>
