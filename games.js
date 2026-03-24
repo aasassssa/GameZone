@@ -55,4 +55,9 @@ const GAMES = [
   { title: "Basketball Stars",  tag: "sports",   icon: "🏀", bg: "#fff3e0", url: "https://www.miniplay.com/embed/basketball-stars" },
   { title: "Soccer Skills",     tag: "sports",   icon: "⚽", bg: "#e8f5e9", url: "https://www.miniplay.com/embed/soccer-skills-world-cup" },
   { title: "Penalty Shootout",  tag: "sports",   icon: "🥅", bg: "#fce4ec", url: "https://www.miniplay.com/embed/penalty-shooters-2" },
+
+  // RACING / SLOPE
+  { title: "Snow Rider 3D",     tag: "action",   icon: "🛷", bg: "#e3f2fd", url: "https://www.miniplay.com/embed/snow-rider-3d" },
+  { title: "Slope 3D",          tag: "action",   icon: "🎿", bg: "#f3e5f5", url: "https://www.miniplay.com/embed/slope-3d" },
+  { title: "Slope 3",           tag: "action",   icon: "🔵", bg: "#e8f5e9", url: "https://www.miniplay.com/embed/slope-3" },
 ];
