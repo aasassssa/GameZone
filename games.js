@@ -43,6 +43,12 @@ const GAMES = [
 
   // BUILDING
   { title: "Minecraft Classic", tag: "building", icon: "⛏️", bg: "#e0f2f1", url: "https://classic.minecraft.net" },
+  { title: "Eaglercraft",       tag: "building", icon: "🦅", bg: "#e8f5e9", url: "https://eaglercraft.com/mc/1.8.8/" },
+
+  // RUNNER
+  { title: "Subway Surfers",    tag: "action",   icon: "🛹", bg: "#fff3e0", url: "https://www.miniplay.com/embed/subway-surfers" },
+  { title: "Subway Surf",       tag: "action",   icon: "🚇", bg: "#fce4ec", url: "https://www.miniplay.com/embed/subway-surf" },
+  { title: "Subway Runner",     tag: "action",   icon: "🏃", bg: "#e8f5e9", url: "https://www.miniplay.com/embed/subway-runner" },
 
   // PUZZLE
   { title: "Chess",             tag: "puzzle",   icon: "♟️", bg: "#e0f2f1", url: "https://playpager.com/embed/chess/index.html" },
@@ -60,4 +66,14 @@ const GAMES = [
   { title: "Snow Rider 3D",     tag: "action",   icon: "🛷", bg: "#e3f2fd", url: "https://www.miniplay.com/embed/snow-rider-3d" },
   { title: "Slope 3D",          tag: "action",   icon: "🎿", bg: "#f3e5f5", url: "https://www.miniplay.com/embed/slope-3d" },
   { title: "Slope 3",           tag: "action",   icon: "🔵", bg: "#e8f5e9", url: "https://www.miniplay.com/embed/slope-3" },
+
+  // MULTIPLAYER
+  { title: "Paper.io",          tag: "multiplayer", icon: "📄", bg: "#f3e5f5", url: "https://www.miniplay.com/embed/paper-io" },
+  { title: "Paper.io 2",        tag: "multiplayer", icon: "📄", bg: "#e3f2fd", url: "https://www.miniplay.com/embed/paper-io-2" },
+  { title: "Cubes 2048.io",     tag: "multiplayer", icon: "🔢", bg: "#fff3e0", url: "https://www.miniplay.com/embed/cubes-2048-io" },
+  { title: "Doublesplit.io",    tag: "multiplayer", icon: "🌌", bg: "#e3f2fd", url: "https://www.miniplay.com/embed/doublesplit-io" },
+  { title: "Obby Parkour Race", tag: "multiplayer", icon: "🏃", bg: "#e8f5e9", url: "https://www.miniplay.com/embed/obby-parkour-race-multijugador" },
+  { title: "Football Bros",     tag: "multiplayer", icon: "🏈", bg: "#fff3e0", url: "https://www.miniplay.com/embed/football-bros" },
+  { title: "Baseball Bros",     tag: "multiplayer", icon: "⚾", bg: "#e8f5e9", url: "https://www.miniplay.com/embed/baseball-bros" },
+  { title: "Basket Bros",       tag: "multiplayer", icon: "🏀", bg: "#fce4ec", url: "https://www.miniplay.com/embed/basket-bros" },
 ];
